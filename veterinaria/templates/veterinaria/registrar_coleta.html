@@ -1,0 +1,16 @@
+{% extends 'veterinaria/base.html' %}
+
+{% block content %}
+    <h2>Registrar Coleta para: {{ boi.nome }}</h2>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn" style="background-color: #27ae60;">Salvar Coleta</button>
+            <a href="{% url 'detalhes_boi' boi.pk %}" style="margin-left: 15px; color: #7f8c8d; text-decoration: none;">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

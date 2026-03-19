@@ -1,0 +1,17 @@
+{% extends 'veterinaria/base.html' %}
+
+{% block content %}
+    <h2>Registar Saída de Sémen: {{ boi.nome }}</h2>
+    <p style="color: #7f8c8d;">Selecione o lote (coleta), a quantidade e o motivo da retirada.</p>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn" style="background-color: #9b59b6;">Confirmar Saída (- Doses)</button>
+            <a href="{% url 'detalhes_boi' boi.pk %}" style="margin-left: 15px; color: #7f8c8d; text-decoration: none;">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

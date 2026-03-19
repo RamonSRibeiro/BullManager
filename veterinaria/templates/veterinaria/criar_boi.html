@@ -1,0 +1,17 @@
+{% extends 'veterinaria/base.html' %}
+
+{% block content %}
+    <h2>Cadastrar Novo Boi</h2>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn">Salvar Cadastro</button>
+            <a href="{% url 'lista_bois' %}" style="margin-left: 15px; color: #7f8c8d; text-decoration: none;">Cancelar</a>
+        </div>
+    </form>
+{% endblock %}

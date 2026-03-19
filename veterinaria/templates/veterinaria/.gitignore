@@ -1,0 +1,42 @@
+# ==============================
+# Python / Django
+# ==============================
+*.pyc
+*.pyo
+__pycache__/
+*.pyd
+
+# Banco de dados local (Não queremos subir dados de teste para o GitHub)
+db.sqlite3
+db.sqlite3-journal
+
+# ==============================
+# Ambiente Virtual
+# ==============================
+venv/
+env/
+.venv/
+
+# ==============================
+# Uploads e Arquivos Estáticos
+# ==============================
+# Ignora a pasta de mídias (onde vão ficar as fotos dos bois e as planilhas de importação)
+media/
+
+# Ignora a pasta de arquivos estáticos coletados para produção
+staticfiles/
+static_root/
+
+# ==============================
+# Configurações de IDE e Sistema
+# ==============================
+.vscode/
+.idea/
+.DS_Store
+__MACOSX/
+
+# ==============================
+# Segredos e Variáveis de Ambiente
+# ==============================
+.env
+.env.local

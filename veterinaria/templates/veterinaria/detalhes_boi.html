@@ -1,0 +1,126 @@
+{% extends 'veterinaria/base.html' %}
+
+{% block content %}
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'lista_bois' %}" class="btn" style="background-color: #34495e; padding: 5px 15px; margin-right: 10px;">&larr; Voltar para a lista</a>
+        <span style="float: right;">
+            <a href="{% url 'relatorio_boi' boi.pk %}" target="_blank" class="btn" style="background-color: #34495e; padding: 5px 15px; margin-right: 10px;">📄 Baixar Relatório PDF</a>
+            
+            <a href="{% url 'editar_boi' boi.pk %}" class="btn" style="background-color: #34495e; padding: 5px 15px;">Editar</a>
+            <a href="{% url 'deletar_boi' boi.pk %}" class="btn" style="background-color: #34495e; padding: 5px 15px; margin-left: 10px;">Deletar</a>
+        </span>
+    </div>
+    
+    <hr>
+
+    <div style="background-color: #ecf0f1; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin: 0;">Ficha Cadastral e Biométrica</h3>
+            <span style="background-color: {% if boi.status == 'ativo' %}#27ae60{% elif boi.status == 'obito' %}#e74c3c{% else %}#f39c12{% endif %}; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8em; text-transform: uppercase; font-weight: bold;">
+                {{ boi.get_status_display }}
+            </span>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+                <p style="margin: 5px 0;"><strong>ID/Brinco:</strong> {{ boi.brinco_id }}</p>
+                <p style="margin: 5px 0;"><strong>Raça:</strong> {{ boi.raca|default:"-" }}</p>
+                <p style="margin: 5px 0;"><strong>Registro (Pedigree):</strong> {{ boi.registro_genealogico|default:"-" }}</p>
+                <p style="margin: 5px 0;"><strong>Nascimento:</strong> {{ boi.data_nascimento|date:"d/m/Y"|default:"-" }}</p>
+                <p style="margin: 5px 0;"><strong>Localização:</strong> {{ boi.localizacao|default:"-" }}</p>
+            </div>
+            
+            <div>
+                <p style="margin: 5px 0;"><strong>Peso:</strong> {% if boi.peso %}{{ boi.peso }} kg{% else %}-{% endif %}</p>
+                <p style="margin: 5px 0;"><strong>Circunferência Escrotal:</strong> {% if boi.circunferencia_escrotal %}{{ boi.circunferencia_escrotal }} cm{% else %}-{% endif %}</p>
+                <p style="margin: 5px 0;"><strong>Último Exame Andrológico:</strong> {{ boi.data_exame_andrologico|date:"d/m/Y"|default:"-" }}</p>
+                <p style="margin: 5px 0;"><strong>Data de Cadastro:</strong> {{ boi.data_cadastro|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+        
+        <hr style="border-top: 1px dashed #bdc3c7; margin: 15px 0;">
+        <p style="margin: 0;"><strong>Descrição:</strong> {{ boi.descricao|default:"Nenhuma descrição informada." }}</p>
+    </div>
+
+    <h3>Fotos</h3>
+    
+    <div style="margin-bottom: 15px;">
+        <a href="{% url 'adicionar_foto' boi.pk %}" class="btn" style="font-size: 0.9em;">+ Adicionar Nova Foto</a>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; border: 1px solid #bdc3c7; padding: 20px; border-radius: 5px; background-color: #f9f9f9;">
+        
+        {% for foto in boi.fotos.all %}
+            <div style="border: 1px solid #ccc; padding: 5px; background: white; text-align: center;">
+                <img src="{{ foto.imagem.url }}" alt="Foto de {{ boi.nome }}" style="max-width: 200px; max-height: 150px; display: block; margin-bottom: 5px;">
+                <a href="{% url 'deletar_foto' boi.pk foto.pk %}" style="color: #e74c3c; font-size: 0.8em; display: block; margin-top: 5px;">Remover Foto</a>
+                </div>
+        {% empty %}
+            <p style="text-align: center; width: 100%; color: #7f8c8d;">Nenhuma foto cadastrada ainda.</p>
+        {% endfor %}
+    </div>
+
+    <h3>Histórico de Coletas e Estoque</h3>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <a href="{% url 'registrar_coleta' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #27ae60;">+ Registar Nova Coleta</a>
+        
+        <a href="{% url 'registrar_saida' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #9b59b6;">📤 Registar Saída (Uso/Venda/Descarte)</a>
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <tr style="background-color: #2c3e50; color: white;">
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Data da Coleta</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Motilidade / Vigor</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Estoque (Doses)</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Validade</th>
+        </tr>
+        
+        {% for coleta in coletas %}
+        <tr style="text-align: center; background-color: #ecf0f1;">
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ coleta.data_coleta|date:"d/m/Y" }}</td>
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ coleta.motilidade }}% / {{ coleta.vigor }}</td>
+            
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">
+                {% if coleta.is_vencida %}
+                    <strong style="color: #e74c3c;">{{ coleta.quantidade_doses }} <span style="font-size: 0.8em;">(Vencido)</span></strong>
+                {% else %}
+                    <strong>{{ coleta.quantidade_doses }}</strong>
+                {% endif %}
+            </td>
+            
+            <td style="padding: 10px; border: 1px solid #bdc3c7; {% if coleta.is_vencida %}color: #e74c3c; font-weight: bold;{% endif %}">
+                {{ coleta.data_validade|date:"d/m/Y"|default:"-" }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3 style="margin-top: 40px;">Histórico de Saídas (Movimentação)</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px;">
+        <tr style="background-color: #34495e; color: white;">
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Data</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Lote (Data Coleta)</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Quantidade</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Motivo</th>
+            <th style="padding: 10px; border: 1px solid #bdc3c7;">Destino</th>
+        </tr>
+        
+        {% for saida in saidas %}
+        <tr style="text-align: center; background-color: #ecf0f1;">
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ saida.data_saida|date:"d/m/Y" }}</td>
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ saida.coleta.data_coleta|date:"d/m/Y" }}</td>
+            <td style="padding: 10px; border: 1px solid #bdc3c7; color: #e74c3c;"><strong>-{{ saida.quantidade }}</strong></td>
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ saida.get_motivo_display }}</td>
+            <td style="padding: 10px; border: 1px solid #bdc3c7;">{{ saida.destino|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="padding: 20px; text-align: center; border: 1px solid #bdc3c7;">
+                Ainda não existem registos de saída de sémen para este animal.
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

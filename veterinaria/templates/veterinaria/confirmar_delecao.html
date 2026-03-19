@@ -1,0 +1,15 @@
+{% extends 'veterinaria/base.html' %}
+
+{% block content %}
+    <div style="text-align: center; padding: 40px;">
+        <h2 style="color: #e74c3c;">Atenção!</h2>
+        <p>Você tem certeza que deseja deletar permanentemente o animal <strong>{{ boi.nome }} (ID: {{ boi.brinco_id }})</strong>?</p>
+        <p><em>Esta ação não pode ser desfeita e apagará todas as coletas e fotos vinculadas a ele.</em></p>
+
+        <form method="POST" style="margin-top: 30px;">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background-color: #e74c3c;">Sim, Quero Deletar</button>
+            <a href="{% url 'detalhes_boi' boi.pk %}" class="btn" style="background-color: #7f8c8d; margin-left: 15px;">Cancelar e Voltar</a>
+        </form>
+    </div>
+{% endblock %}
