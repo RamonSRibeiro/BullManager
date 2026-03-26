@@ -13,7 +13,6 @@ class Boi(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Nome do Boi")
     brinco_id = models.CharField(max_length=50, unique=True, verbose_name="ID/Brinco")
     
-    # --- NOVOS CAMPOS ---
     raca = models.CharField(max_length=50, blank=True, null=True, verbose_name="Raça")
     data_nascimento = models.DateField(blank=True, null=True, verbose_name="Data de Nascimento")
     registro_genealogico = models.CharField(max_length=50, blank=True, null=True, verbose_name="Registro (Pedigree)")
@@ -24,7 +23,6 @@ class Boi(models.Model):
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ativo', verbose_name="Status")
     localizacao = models.CharField(max_length=100, blank=True, null=True, verbose_name="Localização/Lote")
-    # --------------------
     
     descricao = models.TextField(blank=True, null=True, verbose_name="Descrição")
     data_cadastro = models.DateTimeField(auto_now_add=True)

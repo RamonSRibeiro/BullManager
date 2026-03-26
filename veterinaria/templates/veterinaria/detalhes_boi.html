@@ -45,7 +45,7 @@
     <h3>Fotos</h3>
     
     <div style="margin-bottom: 15px;">
-        <a href="{% url 'adicionar_foto' boi.pk %}" class="btn" style="font-size: 0.9em;">+ Adicionar Nova Foto</a>
+        <a href="{% url 'adicionar_foto' boi.pk %}" class="btn" <tr style="background-color: #34495e; color: white;">+ Adicionar Nova Foto</a>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 15px; border: 1px solid #bdc3c7; padding: 20px; border-radius: 5px; background-color: #f9f9f9;">
@@ -63,9 +63,9 @@
     <h3>Histórico de Coletas e Estoque</h3>
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <a href="{% url 'registrar_coleta' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #27ae60;">+ Registar Nova Coleta</a>
+        <a href="{% url 'registrar_coleta' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #34495e;">+ Registar Nova Coleta</a>
         
-        <a href="{% url 'registrar_saida' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #9b59b6;">📤 Registar Saída (Uso/Venda/Descarte)</a>
+        <a href="{% url 'registrar_saida' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #34495e;">Registar Saída (Uso/Venda/Descarte)</a>
     </div>
 
     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
