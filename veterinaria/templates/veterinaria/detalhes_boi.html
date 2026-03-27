@@ -64,8 +64,6 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
         <a href="{% url 'registrar_coleta' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #34495e;">+ Registar Nova Coleta</a>
-        
-        <a href="{% url 'registrar_saida' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #34495e;">Registar Saída (Uso/Venda/Descarte)</a>
     </div>
 
     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -97,6 +95,10 @@
     </table>
 
     <h3 style="margin-top: 40px;">Histórico de Saídas (Movimentação)</h3>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <a href="{% url 'registrar_saida' boi.pk %}" class="btn" style="font-size: 0.9em; background-color: #34495e;">+ Registar Saída (Uso/Venda/Descarte)</a>
+    </div>
     <table style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px;">
         <tr style="background-color: #34495e; color: white;">
             <th style="padding: 10px; border: 1px solid #bdc3c7;">Data</th>
