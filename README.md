@@ -16,7 +16,6 @@ Antes de começar, você precisa ter instalado em sua máquina:
 1. Clone o repositório:
 git clone https://github.com/seuusuario/BullManager.git
 cd BullManager-main
-
    
 2- Crie e ative um ambiente virtual:
 python -m venv venv
