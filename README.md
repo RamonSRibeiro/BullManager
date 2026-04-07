@@ -1,70 +1,90 @@
-# BullManager
+# Gerenciador Bovino
 
-Sistema desenvolvido em Django para gerenciamento veterinário.
+## Descrição
 
-## 🚀 Pré-requisitos
+O **Gerenciador Bovino** é uma aplicação web desenvolvida em Django para o gerenciamento de bovinos em um contexto veterinário. O sistema permite o cadastro de animais, controle de coletas de sêmen, rastreamento de estoque e validade dos lotes, além de funcionalidades para registro de saídas e alertas automáticos.
 
-Antes de começar, você precisa ter instalado em sua máquina:
+### Funcionalidades Principais
 
-- [Python 3.10+](https://www.python.org/downloads/)
-- [pip](https://pip.pypa.io/en/stable/)
-- [virtualenv](https://virtualenv.pypa.io/en/latest/) (opcional, mas recomendado)
-- Git
+- **Cadastro de Bovinos**: Adicione, edite e visualize detalhes dos animais, incluindo fotos, raça, data de nascimento e exames andrológicos.
+- **Controle de Coletas de Sêmen**: Registre coletas com dados laboratoriais (motilidade, vigor), gere códigos de lote automaticamente e monitore o estoque.
+- **Rastreamento de Saídas**: Registre saídas de sêmen para inseminação própria, vendas ou descartes, com controle de destino e observações.
+- **Dashboard com Alertas**: Visualize o estoque total, alertas de estoque crítico e lotes próximos ao vencimento (30 dias).
+- **Importação de Dados**: Importe bovinos em massa via arquivo Excel.
+- **Busca e Filtros**: Pesquise animais por nome ou ID.
+- **Relatórios**: Gere relatórios detalhados para cada bovino.
 
-## 📦 Instalação
+## Tecnologias Utilizadas
 
-1. Clone o repositório:
-git clone https://github.com/seuusuario/BullManager.git
-cd BullManager-main
-   
-2- Crie e ative um ambiente virtual:
-python -m venv venv
-# Windows (PowerShell)
-venv\Scripts\activate
-# Linux/Mac
-source venv/bin/activate
+- **Backend**: Django 6.0.3
+- **Banco de Dados**: SQLite
+- **Bibliotecas Python**:
+  - pandas: Para manipulação de dados e importação de Excel
+  - openpyxl: Suporte para arquivos Excel
+  - Pillow: Processamento de imagens para upload de fotos
+- **Frontend**: HTML/CSS (templates Django)
 
-3- Instale as dependências:
+## Instalação
 
-pip install -r requirements.txt
+1. **Clone o repositório**:
+   ```bash
+   git clone <url-do-repositorio>
+   cd gerenciador_bovino
+   ```
 
-4- Para gerar uma chave secreta segura:
+2. **Crie um ambiente virtual**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # No Windows: venv\Scripts\activate
+   ```
 
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+3. **Instale as dependências**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-⚙️ Configuração inicia
-1- Execute as migrações:
-python manage.py migrate
+4. **Configure as variáveis de ambiente**:
+   - Crie um arquivo `.env` na raiz do projeto com:
+     ```
+     SECRET_KEY=sua-chave-secreta-aqui
+     DEBUG=True
+     ```
 
-2-Crie um superusuário para acessar o painel administrativo:
-python manage.py createsuperuser
+5. **Execute as migrações do banco de dados**:
+   ```bash
+   python manage.py migrate
+   ```
 
-3- Inicie o servidor de desenvolvimento:
-python manage.py runserver
+6. **Inicie o servidor**:
+   ```bash
+   python manage.py runserver
+   ```
 
-4- Acesse no navegador:
-http://127.0.0.1:8000/
+   Acesse a aplicação em `http://127.0.0.1:8000/`.
 
-📂 Estrutura do projeto
-- core/ → Configurações principais do Django
-- veterinaria/ → Aplicação veterinária
-- manage.py → Utilitário para comandos Django
-- .env → Variáveis de ambiente (não deve ser versionado)
-🛠️ Ambiente de produção
-- Defina DEBUG=False no .env
-- Configure ALLOWED_HOSTS com o domínio ou IP do servidor
-- Use um servidor WSGI/ASGI (ex: Gunicorn, Daphne) atrás de um servidor web (ex: Nginx)
+## Uso
 
-✅ Checklist rápido
-- [ ] Criar .env com SECRET_KEY, DEBUG, ALLOWED_HOSTS
-- [ ] Instalar dependências
-- [ ] Rodar migrate
-- [ ] Criar superusuário
-- [ ] Rodar runserver
+- **Página Inicial**: Lista todos os bovinos com dashboard de alertas.
+- **Adicionar Bovino**: Use o formulário para cadastrar novos animais.
+- **Detalhes do Bovino**: Visualize informações completas, fotos e histórico de coletas.
+- **Registrar Coleta**: Adicione novas coletas de sêmen com dados laboratoriais.
+- **Registrar Saída**: Controle as saídas de sêmen.
+- **Importar Bovinos**: Faça upload de um arquivo Excel para importar múltiplos animais.
 
-Feito isso, o sistema estará pronto para uso!
+## Estrutura do Projeto
 
-
-
-
+```
+gerenciador_bovino/
+├── core/                 # Configurações principais do Django
+├── veterinaria/          # App principal
+│   ├── models.py         # Modelos de dados (Boi, ColetaSemen, etc.)
+│   ├── views.py          # Lógica das views
+│   ├── forms.py          # Formulários Django
+│   ├── templates/        # Templates HTML
+│   └── migrations/       # Migrações do banco
+├── media/                # Arquivos de mídia (fotos)
+├── db.sqlite3            # Banco de dados
+├── manage.py             # Script de gerenciamento Django
+└── requirements.txt      # Dependências Python
+```
 
